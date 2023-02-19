@@ -20,7 +20,7 @@ As regras de Pedra-papel-tesoura-lagarto-Spock são:
     -Spock vaporiza pedra
     -Pedra amassa tesoura
 <div>
-    <img style="border-radius:50px;" src="https://suricatodigital.com/wp-content/uploads/2020/03/sheldon-cooper-em-pedra-papel-tesoura-lagarto-spock.jpg">
+    <img height="100" style="border-radius:50px;" src="https://suricatodigital.com/wp-content/uploads/2020/03/sheldon-cooper-em-pedra-papel-tesoura-lagarto-spock.jpg">
 </.div>
     
 ### Download:
