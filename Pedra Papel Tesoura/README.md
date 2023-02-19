@@ -10,7 +10,7 @@ Ao final do processo, o programa mostra se o jogador foi vitorioso ou não, most
 
 Utilize o git para clonar o repositório e utilize o compilador g++ para criar o binário:
 
-    git clone https://github.com/Wolfterro/Projetos-em-Cpp.git
-    cd Projetos-em-Cpp/PedraPapelTesoura
+    git clone clone https://github.com/jonhpaul5/Jogos.git
+    cd Jogs/Pedra Papel Tesoura
     g++ PPT.cpp -o PPT
     ./PPT
