@@ -10,10 +10,10 @@ Ao final do processo, o programa mostra se o jogador foi vitorioso ou não, most
 
 Utilize o git para clonar o repositório e utilize o compilador g++ para criar o binário:
 
-    git clone https://github.com/Wolfterro/Projetos-em-Cpp.git
-    cd Projetos-em-Cpp/PedraPapelTesoura
-    g++ PPT.cpp -o PPT
-    ./PPT
+    git clone https://github.com/jonhpaul5/Jogos.git
+    cd Jogos/PedraPapelTesouraLagartoSpock 
+    g++ PPTLS.cpp -o PPTLS
+    ./PPTLS
 
 ### Regras:
 As regras de Pedra-papel-tesoura-lagarto-Spock são:
