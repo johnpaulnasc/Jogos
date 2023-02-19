@@ -1,2 +1,2 @@
-# Jogos-em-Python
+# Jogos
 Passatempo que tenho para me divertir
