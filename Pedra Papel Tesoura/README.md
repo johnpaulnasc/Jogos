@@ -19,7 +19,10 @@ As regras de Pedra-papel-tesoura-lagarto-Spock são:
     -Papel refuta Spock
     -Spock vaporiza pedra
     -Pedra amassa tesoura
-
+<div>
+    <img align="right" alt="JP-BabyYoda" height="100" style="border-radius:50px;" src="https://suricatodigital.com/wp-content/uploads/2020/03/sheldon-cooper-em-pedra-papel-tesoura-lagarto-spock.jpg">
+</.div>
+    
 ### Download:
 
 Utilize o git para clonar o repositório e utilize o compilador g++ para criar o binário:
