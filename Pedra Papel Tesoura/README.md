@@ -14,20 +14,3 @@ Utilize o git para clonar o repositório e utilize o compilador g++ para criar o
     cd Projetos-em-Cpp/PedraPapelTesoura
     g++ PPT.cpp -o PPT
     ./PPT
-
-### Regras:
-As regras de Pedra-papel-tesoura-lagarto-Spock são:
-
-    -Tesoura corta papel
-    -Papel cobre pedra
-    -Pedra esmaga lagarto
-    -Lagarto envenena Spock
-    -Spock esmaga (ou derrete) tesoura
-    -Tesoura decapita lagarto
-    -Lagarto come papel
-    -Papel refuta Spock
-    -Spock vaporiza pedra
-    -Pedra amassa tesoura
-<div align="center">
-    <img style="border-radius:50px;" src="https://suricatodigital.com/wp-content/uploads/2020/03/sheldon-cooper-em-pedra-papel-tesoura-lagarto-spock.jpg">
-</.div>
