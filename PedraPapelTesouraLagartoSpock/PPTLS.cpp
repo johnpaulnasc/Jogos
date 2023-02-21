@@ -121,12 +121,12 @@ public:
 
     void msgPerdeu(string jogadaCPU, string jogadaJogador) {
         cout << "Que pena! Você perdeu!" << endl;
-        cout << "Voucê jogou " << jogadaJogador << " e o computador jogou " << jogadaCPU << "." << endl;
+        cout << "Você jogou " << jogadaJogador << " e o computador jogou " << jogadaCPU << "." << endl;
     }
 
     void msgEmpatou(string jogadaCPU, string jogadaJogador) {
         cout << "Oops! o jogo empatou!" << endl;
-        cout << "Voucê jogou " << jogadaJogador << " e o computador jogou " << jogadaCPU << "." << endl;
+        cout << "Você jogou " << jogadaJogador << " e o computador jogou " << jogadaCPU << "." << endl;
     }
 
     private:
@@ -165,9 +165,9 @@ int main(void) {
     string versao = "1.0";
     string escolha;
 
-    cout << "===================================" << endl;
-    cout << "Pedra, Papel e Tesoura - Versão " << versao << endl;
-    cout << "===================================" << endl;
+    cout << "==================================================" << endl;
+    cout << "Pedra, Papel, Tesoura, Lagarto e Spock - Versão " << versao << endl;
+    cout << "==================================================" << endl;
 
     while (true) {
         IniciarJogo();
