@@ -5,8 +5,6 @@
 #define PEDRA 1
 #define PAPEL 2
 #define TESOURA 3
-#define LAGARTO 4
-#define SPOCK 5
 
 using namespace std;
 
@@ -33,10 +31,6 @@ public:
                 else if (palpiteJogador == TESOURA) {
                     msgPerdeu("pedra", "tesoura");
                 }
-                else if (palpiteJogador == LAGARTO)
-                    msgGanhou("pedra", "lagarto");
-                else if (palpiteJogador == SPOCK)
-                    msgPerdeu("pedra", "spock");
                 break;
 
             case PAPEL:
@@ -49,12 +43,6 @@ public:
                 else if (palpiteJogador == TESOURA) {
                     msgGanhou("papel", "tesoura");
                 }
-                else if (palpiteJogador == LAGARTO) {
-                    msgPerdeu("papel", "lagarto");
-                }
-                else if (palpiteJogador == SPOCK) {
-                    msgGanhou("papel", "spock");
-                }
                 break;
             
             case TESOURA:
@@ -66,48 +54,6 @@ public:
                 }
                 else if (palpiteJogador == TESOURA) {
                     msgEmpatou("tesoura", "tesoura");
-                }
-                else if (palpiteJogador == LAGARTO) {
-                    msgGanhou("tesoura", "lagarto");
-                }
-                else if (palpiteJogador == SPOCK) {
-                    msgPerdeu("tesoura", "spock");
-                }
-                break;
-            
-            case LAGARTO:
-                if (palpiteJogador == PEDRA) {
-                    msgPerdeu("lagarto", "pedra");
-                }
-                else if (palpiteJogador == PAPEL) {
-                    msgGanhou("lagarto", "papel");
-                }
-                else if (palpiteJogador == TESOURA) {
-                    msgPerdeu("lagarto", "tesoura");
-                }
-                else if (palpiteJogador == LAGARTO) {
-                    msgEmpatou("lagarto", "lagarto");
-                }
-                else if (palpiteJogador == SPOCK) {
-                    msgGanhou("lagarto", "spock");
-                }
-                break;
-            
-            case SPOCK:
-                if (palpiteJogador == PEDRA) {
-                    msgGanhou("spock", "pedra");
-                }
-                else if (palpiteJogador == PAPEL){
-                    msgPerdeu("spock", "papel");
-                }
-                else if (palpiteJogador == TESOURA){
-                    msgGanhou("spock", "tesoura");
-                }
-                else if (palpiteJogador == LAGARTO){
-                    msgPerdeu("spock", "lagarto");
-                }
-                else if (palpiteJogador == SPOCK){
-                    msgEmpatou("spock", "spock");
                 }
                 break;
         }
@@ -134,7 +80,7 @@ public:
         /*Soteio do computador*/
         int SorteioCPU() {
             srand(time(NULL));
-            return (rand() % 4) + 1;
+            return (rand() % 3) + 1;
         }
 };
 
@@ -144,11 +90,11 @@ void IniciarJogo(void) {
     JogoPPT jogador;
     int palpiteJogador;
 
-    cout << "(1) Pedra" << endl << "(2) Papel" << endl << "(3) Tesoura" << endl << "(4) Lagarto" << endl << "(5) Spock" << endl;
+    cout << "(1) Pedra" << endl << "(2) Papel" << endl << "(3) Tesoura" << endl;
     cout << "Insira o seu palpite (qualquer outra tecla para sair):";
     cin >> palpiteJogador;
 
-    if (palpiteJogador != 1 && palpiteJogador !=2 && palpiteJogador !=3 && palpiteJogador !=4 && palpiteJogador !=5) {
+    if (palpiteJogador != 1 && palpiteJogador !=2 && palpiteJogador !=3) {
         cout << "Saindo..." << endl;
         exit(0);
     }
@@ -163,12 +109,12 @@ void IniciarJogo(void) {
  * jogar novamente.
  */
 int main(void) {
-    string versao = "2.0";
+    string versao = "1.0";
     string escolha;
 
-    cout << "==================================================" << endl;
-    cout << "Pedra, Papel, Tesoura, Lagarto e Spock - Versão " << versao << endl;
-    cout << "==================================================" << endl;
+    cout << "===================================" << endl;
+    cout << "Pedra, Papel e Tesoura - Versão " << versao << endl;
+    cout << "===================================" << endl;
 
     while (true) {
         IniciarJogo();
