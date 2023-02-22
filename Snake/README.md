@@ -19,7 +19,7 @@ Utilize o git para clonar o repositório e utilize e os seguintes comando para r
     python3 snakegame.py
 
 div align="center">
-    <img style="border-radius:50px;" src="https://uploaddeimagens.com.br/imagens/udkTbU0">
+    <img style="border-radius:50px;" src="https://uploaddeimagens.com.br/images/004/362/582/original/Screenshot_from_2023-02-21_21-40-36.png?1677027614">
 </.div>
 
 ## Pré-requisitos
