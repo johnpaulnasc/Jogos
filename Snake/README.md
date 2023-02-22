@@ -18,7 +18,9 @@ Utilize o git para clonar o repositório e utilize e os seguintes comando para r
     cd Jogos/snake/src
     python3 snakegame.py
 
-![1](https://uploaddeimagens.com.br/imagens/udkTbU0)
+div align="center">
+    <img style="border-radius:50px;" src="https://uploaddeimagens.com.br/imagens/udkTbU0">
+</.div>
 
 ## Pré-requisitos
 * [Python](https://www.python.org)
