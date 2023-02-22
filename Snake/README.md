@@ -30,4 +30,3 @@ Utilize o git para clonar o repositório e utilize e os seguintes comando para r
 
 ## Reconhecimentos
  [Pygame Documentations](https://www.pygame.org/docs/)
-* [Udemy: Python Game Development](https://www.udemy.com/python-game-development-creating-a-snake-game-from-scratch/learn/v4/overview)
