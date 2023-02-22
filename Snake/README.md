@@ -24,7 +24,7 @@ Utilize o git para clonar o repositório e utilize e os seguintes comando para r
 
 ## Pré-requisitos
 * [Python](https://www.python.org)
-* [Pygame](https://www.pygame.org/wiki/GettingStarted), an open source Python library for making multimedia applications
+* [Pygame](https://www.pygame.org/wiki/GettingStarted), uma biblioteca Python de código aberto para criar aplicativos multimídia
 
 ## Autor
 
