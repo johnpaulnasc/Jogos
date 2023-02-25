@@ -95,22 +95,98 @@ def king_moves(coords):
             res.append((coords[0] + j, coords[1] + g))
     return res
 
-# Vai retornar uma lista de tuplas(x,y) com os movimento possiveispara um determinado peça do tabuleiro
+# Vai retornar uma lista de tuplas(x,y) com os movimento possiveis para um determinado peça do tabuleiro
 def moves(coords, board):
     piece = board[coords[1]][coords[0]]
     res = []
 
-    
+    # Movimento do peão(white)
     if piece == wpawn and coords[1] > 0:
-
+        # Movimento normal
         if board[coords[1] - 1][coords[0]] == 0:
             res.append((coords[0], coords[1] - 1))
-        
+        # Primeiro movimento
         if coords[1] == 0:
-            if board[coords[1] - 2][coords[0]] == 0 and board[coords[1] - 1][coords[0]] == 0: #primeiro movimento
+            if board[coords[1] - 2][coords[0]] == 0 and board[coords[1] - 1][coords[0]] == 0:
                 res.append((coords[0], coords[1] - 2))
-        
+        # Captura da esqueda
+        if coords[0] < 7:
+            if board[coords[1] - 1][coords[0] + 1] != 0: 
+                res.append((coords[0] + 1, coords[1] - 1))
+        # Captura da direita
+        if board[coords[1] - 1][coords[0] - 1] != 0:
+            res.append((coords[0] - 1, coords[1] - 1))
+        # En passant (de passagem)
+        if coords[1] == 3 and coords[0] < 7:
+            if board[coords[1]][coords[0] + 1] and previous_board[1][coords[0] + 1] == bpawn:
+                res.append((coords[0] + 1, coords[1] - 1))
+        if coords[1] == 3 and coords[0] > 0 and previous_board[1][coords[0] - 1] == bpawn:
+            if board[coords[1]][coords[0] - 1]:
+                res.append((coords[0] - 1, coords[1] - 1))
+    
+    # Movimento do peão(black)
+    if piece == bpawn and coords[1] < 7:
+        # Movimento normal
+        if board[coords[1] + 1][coords[0]] == 0:
+            res.append((coords[0], coords[1] + 1))
+        # Primeiro movimento
+        if coords[1] == 1:
+            if board[coords[1] + 2][coords[0]] == 0 and board[coords[1] + 1][coords[0]] == 0:
+                res.append((coords[0], coords[1] + 2))
+        # Captura da esqueda
+        if coords[0] < 7:
+            if board[coords[1] + 1][coords[0] + 1] != 0:
+                res.append((coords[0] + 1, coords[1] + 1))
+        # Captura da direita
+        if board[coords[1] + 1][coords[0] - 1] != 0:
+            res.append((coords[0] - 1, coords[1] + 1))
+        # En passant (de passagem)
+        if coords[1] == 4 and coords[0] < 7:
+            if board[coords[1]][coords[0] + 1] and previous_board[6][coords[0] + 1] == wpawn:
+                res.append((coords[0] + 1, coords[1] + 1))
+        if coords[1] == 4 and coords[0] > 0 and previous_board[6][coords[0] - 1] == wpawn:
+            if board[coords[1]][coords[0] - 1]:
+                res.append((coords[0] - 1, coords[1] + 1))
+    
+    # Movimento do cavalo em L
+    if piece in [wknight, bknight]: 
+        for x, y in [(x, y) for x in (1, -1) for y in (2, -2)]: 
+            res.append((coords[0] + x, coords[1] + y))
+        for x, y in [(x, y) for y in (1, -1) for x in (2, -2)]: 
+            res.append((coords[0] + x, coords[1] + y))
 
+    # Movimento do bispo e da rainha diagonal
+    if piece in [wbishop, bbishop, wqueen, bqueen]:
+        for j, g in [(j, 0) for j in (1, -1) for g in (-1, 1)]: # Diagonal
+            for i in range(1, 10): # 10 é o número máximo de casas que um bispo pode andar
+                # Se a posição for uma das possíveis
+                if 0 <= coords[0] + i * g <= 7 and 0 <= coords[1] + i * i <= 7:
+                    res.append((coords[0] + i * g, coords[1] + i * j))
+                    # Se a posição for ocupada
+                    if board[coords[1] + i * j][coords[0] + i * 0] != 0: break 
+    
+    # Movimento da torre e da rainha horizontal e vertical
+    if piece in [wrook, brook, wqueen, bqueen]:
+        for j in [-1, 1]:
+            for i in range (1, 10): # 10 é o número máximo de casas que um bispo pode andar
+                # Se a posição for uma das possíveis
+                if 0 <= coords[0] <= 7 and 0 <= coords[1] + i * j <= 7:
+                    res.append((coords[0], coords[1] + i * j))
+                    # Se a posição for ocupada
+                    if board[coords[1] + i * j][coords[0]] != 0: break
         
-        
+            for i in range(1, 10): # 10 é o número máximo de casas que um bispo pode andar
+                # Se a posição for uma das possíveis
+                if 0 <= coords[0] + i * j <= 7 and 0 <= coords[1] <= 7:
+                    res.append((coords[0] + i * j, coords[1]))
+                    # Se a posição for ocupada
+                    if board[coords[1]][coords[0] + i * j] != 0: break
 
+    # Movimento do rei
+    if piece in [wking, bking]:
+        for (x, y) in king_moves(coords):
+            res.append((x, y))
+
+    res = list(filter(lambda x: x[1] >= 0 and x[1] <= 7 and x[0] >= 0 and x[0] <= 7, res)) # Verifica se a posição é válida (dentro do tabuleiro)
+    if is_white(piece): res = list(filter(lambda x: not is_white(board[x[1]][x[0]]), res)) # Verifica se a posição é válida (não captura peça branca)
+    if is_black(piece): res = list(filter(lambda x: not is_black(board[x[1]][x[0]]), res)) # Verifica se a posição é válida (não captura peça preta)

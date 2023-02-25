@@ -41,7 +41,7 @@ board = [[brook, bknight, bbishop, bqueen, bking, bbishop, bknight, brook],
         [wrook, wknight, wbishop, wqueen, wking, wbishop, wknight, wrook]]
 
 new_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)] 
-previou_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)]
+previous_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)]
 board_history = {}
 prev_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)]
 for (x,y) in [(x,y) for x in range(8) for y in range(8)]:
