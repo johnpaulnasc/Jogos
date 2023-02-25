@@ -190,3 +190,4 @@ def moves(coords, board):
     res = list(filter(lambda x: x[1] >= 0 and x[1] <= 7 and x[0] >= 0 and x[0] <= 7, res)) # Verifica se a posição é válida (dentro do tabuleiro)
     if is_white(piece): res = list(filter(lambda x: not is_white(board[x[1]][x[0]]), res)) # Verifica se a posição é válida (não captura peça branca)
     if is_black(piece): res = list(filter(lambda x: not is_black(board[x[1]][x[0]]), res)) # Verifica se a posição é válida (não captura peça preta)
+    return res
