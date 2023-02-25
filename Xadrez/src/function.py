@@ -85,3 +85,32 @@ def threat_move(coords, new_coords, board):
     side = find_side (new_board[new_coords[1]][new_coords[0]])
     return threat (find_king (find_side (new_board[new_coords[1]][new_coords[0]]), new_board), new_board)
 
+# Verificas todos os movimentos possíveis para o rei sem restrições
+def king_moves(coords):
+    res = []
+
+    # Se a posição for uma das possíveis
+    for (j,g) in [(j,g) for j in [-1,1,0]]:
+        if 0 <= coords[0] + j <= 7 and 0 <= coords[1] + g <= 7 and (coords[0] + j, coords[1] +g) != coords:
+            res.append((coords[0] + j, coords[1] + g))
+    return res
+
+# Vai retornar uma lista de tuplas(x,y) com os movimento possiveispara um determinado peça do tabuleiro
+def moves(coords, board):
+    piece = board[coords[1]][coords[0]]
+    res = []
+
+    
+    if piece == wpawn and coords[1] > 0:
+
+        if board[coords[1] - 1][coords[0]] == 0:
+            res.append((coords[0], coords[1] - 1))
+        
+        if coords[1] == 0:
+            if board[coords[1] - 2][coords[0]] == 0 and board[coords[1] - 1][coords[0]] == 0: #primeiro movimento
+                res.append((coords[0], coords[1] - 2))
+        
+
+        
+        
+

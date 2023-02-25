@@ -30,6 +30,7 @@ return_menu = pygame.image.load("../assets/return_menu.png")
 (wqueen, bqueen) = (pygame.image.load("../assets/wqueen.png"), pygame.image.load("../assets/bqueen.png"))
 (wking, bking) = (pygame.image.load("../assets/wking.png"), pygame.image.load("../assets/bking.png"))
 
+
 board = [[brook, bknight, bbishop, bqueen, bking, bbishop, bknight, brook],
         [bpawn, bpawn, bpawn, bpawn, bpawn, bpawn, bpawn, bpawn],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -39,7 +40,7 @@ board = [[brook, bknight, bbishop, bqueen, bking, bbishop, bknight, brook],
         [wpawn, wpawn, wpawn, wpawn, wpawn, wpawn, wpawn, wpawn],
         [wrook, wknight, wbishop, wqueen, wking, wbishop, wknight, wrook]]
 
-new_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)]
+new_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)] 
 previou_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)]
 board_history = {}
 prev_board = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(8)]

@@ -15,7 +15,7 @@ Utilize o git para clonar o repositório e utilize e os seguintes comando para r
 
     git clone https://github.com/jonhpaul5/Jogos.git
     cd Jogos/Xadrez/src
-    python3 xadrez.py
+    python3 main.py
 
 ## Descrição
 
