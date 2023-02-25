@@ -191,3 +191,17 @@ def moves(coords, board):
     if is_white(piece): res = list(filter(lambda x: not is_white(board[x[1]][x[0]]), res)) # Verifica se a posição é válida (não captura peça branca)
     if is_black(piece): res = list(filter(lambda x: not is_black(board[x[1]][x[0]]), res)) # Verifica se a posição é válida (não captura peça preta)
     return res
+
+def possible_moves(coords_list, selected, board, wcastle, bcastle):
+    res = list(filter(lambda x: not threat_move(selected, x, board)))
+    piece = board[selected[1][selected[0]]]
+    if piece == wking and board[7][6] == 0 and board[7][5] == 0 and wcastle[1] and not threat_move(find_king('white', board), (5, 7), board): 
+        res.append((7, 7))
+    if piece == wking and board[7][1] == 0 and board[7][2] == 0 and board[7][3] == 0 and wcastle[0] and not threat_move(find_king('white', board), (3, 7), board):
+        res.append((0, 7))
+    if piece == bking and board[0][6] == 0 and board[0][5] == 0 and bcastle[1] and not threat_move(find_king('black', board), (5, 0), board):
+        res.append((7, 0))
+    if piece == bking and board[0][1] == 0 and board[0][2] == 0 and board[0][3] == 0 and bcastle[0] and not threat_move(find_king('black', board), (3, 0), board):
+        res.append((0, 0))
+
+    checked = check(board)
