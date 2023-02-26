@@ -192,9 +192,13 @@ def moves(coords, board):
     if is_black(piece): res = list(filter(lambda x: not is_black(board[x[1]][x[0]]), res)) # Verifica se a posição é válida (não captura peça preta)
     return res
 
+# Verifica se o movimento coloca o rei em xeque
 def possible_moves(coords_list, selected, board, wcastle, bcastle):
     res = list(filter(lambda x: not threat_move(selected, x, board)))
     piece = board[selected[1][selected[0]]]
+
+    # Se o rei se mover, não pode mais fazer roque (castling) com a torre correspondente (se houver)
+
     if piece == wking and board[7][6] == 0 and board[7][5] == 0 and wcastle[1] and not threat_move(find_king('white', board), (5, 7), board): 
         res.append((7, 7))
     if piece == wking and board[7][1] == 0 and board[7][2] == 0 and board[7][3] == 0 and wcastle[0] and not threat_move(find_king('white', board), (3, 7), board):
@@ -204,4 +208,90 @@ def possible_moves(coords_list, selected, board, wcastle, bcastle):
     if piece == bking and board[0][1] == 0 and board[0][2] == 0 and board[0][3] == 0 and bcastle[0] and not threat_move(find_king('black', board), (3, 0), board):
         res.append((0, 0))
 
+    # Se o rei estiver em xeque, só pode se mover para fora do xeque
     checked = check(board)
+
+    if (checkmated == 'white' or threat_move(find_king('white', board), (6, 7), board)) and piece == wking and True in wcastle and (7, 7) in res:
+        res.remove((7, 7))
+    if (checkmated == 'white' or threat_move(find_king('white', board), (2, 7), board)) and piece == wking and True in wcastle and (0, 7) in res:
+        res.remove((0, 7))
+    if (checkmated == 'black' or threat_move(find_king('black', board), (6, 0), board)) and piece == bking and True in bcastle and (7, 0) in res:
+        res.remove((7, 0))
+    if (checkmated == 'black' or threat_move(find_king('black', board), (2, 0), board)) and piece == bking and True in bcastle and (0, 0) in res:
+        res.remove((0, 0))
+    return res
+
+###########################    RENDERIZAÇÃO DE IMAGEM    ###########################
+
+# Desenha o tabuleiro
+def draw_board(win, board, rotated):
+    # Se o tabuleiro estiver rotacionado, inverte as linhas e colunas do tabuleiro
+    if rotated: 
+        board = [x[::-1] for x in board[::-1]]
+    # Desenha as casas do tabuleiro
+    for i in range (8):
+        for j in range (8):
+            if board[i][j] != 0:
+                win.blit(board[i][j], (64 + 64 * j, 64 + 64 * i))
+
+# Desenha movimentos possíveis e capturas
+def draw_moves(win, coords_list, selected, board, rotated):
+
+    if rotated:
+        coords_list - [(7 - x, 7 - y) for (x, y) in coords_list]
+    
+    for coords in coords_list:
+        if rotated:
+            c = board[7 - coords[1]][7 - coords[0]]
+        else:
+            c = board[coords[1]][coords[0]]
+        if c != 0:
+            win.blit(target, (64 + 64 * coords[0], 64 + 64 * coords[1]))
+        else:
+            pygame.draw.circle(win, (20, 23, 25), (coords[0] * 64 + 96, coords[1] * 64 + 96), 7)
+
+# Sorteio do peão promovido
+def draw_pawn_promotion(win, coords):
+
+    if board[coords[1]][coords[0]] == wpawn:
+        for i in enumerate([wqueen, wrook, wbishop, wknight]):
+            if rotated:
+                win.blit(i[1], (576, 320 + 64 * i[0]))
+            else:
+                win.blit(i[1], (0, 64 + 64 * i[0]))
+
+    if board[coords[1]][coords[0]] == bpawn:
+        for i in enumerate([bqueen, brook, bbishop, bknight]):
+            if rotated:
+                win.blit(i[1], (0, 64 + 64 * i[0]))
+            else:
+                win.blit(i[1], (576, 320 + 64 * i[0]))
+
+def draw_buttons(win):
+    win.blit(cross, (80, 592))
+    win.blit(rotate, (144, 592))
+    win.blit(arrow_backwards, (208, 592))
+    win.blit(arrow_forwards, (272, 592))
+    win.blit(return_menu, (16, 16))
+
+###########################    BOARD EVALUATION   ###########################
+
+# Verifica se o rei está em xeque 
+def check(board):
+    (white, black) = (False, False)
+    for (x, y) in [(x, y) for x in range(8) for y in range(8) if board[y][x] != 0]:
+        possible_moves = res = list(filter(lambda z: not threat_move((x,y), z, board), moves((x,y),board)))
+        if is_white(board[y][x]) and find_king('black', board) in possible_moves:
+            black = True
+        if is_black(board[y][x]) and find_king('white', board) in possible_moves:
+            white = True
+    return 'white' * white + 'black' * black
+
+# Verifica se o rei está em xeque-mate ou se o jogo acabou por falta de peças
+def checkmate(board, wcastle, bcastle):
+    (white, black) = (True, True)
+    for (x, y) in [(x, y) for x in range(8) for y in range(8) if board[y][x] != 0]:
+        if possible_moves(moves((x,y), board), (x,y), board, wcastle, bcastle) != []:
+            if is_white(board[y][x]): white = False
+            if is_black(board[y][x]): black = False
+    return 'white' * white + 'black' * black
