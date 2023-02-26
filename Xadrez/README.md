@@ -4,7 +4,7 @@ Xadrez game escrito em Python usando a biblioteca Pygame.
 
 ## Instalação
 
-### Pré-requisitos
+#### Pré-requisitos
 * [Python](https://www.python.org)
 * [Pygame](https://www.pygame.org/wiki/GettingStarted), uma biblioteca Python de código aberto para criar aplicativos multimídia
 
