@@ -65,7 +65,7 @@ king = [[-30, -40, -40, -50, -50, -40, -40, -30],
         [20, 30, 10, 0, 0, 10, 30, 20]]
 
 # Valores das peças
-piece_values = {**dict.fromkeys([wpawn, bpawn], 10), 
+pieces_value = {**dict.fromkeys([wpawn, bpawn], 10), 
                 **dict.fromkeys([wknight, bknight], 30)
                 **dict.fromkeys([wbishop, bbishop], 30),
                 **dict.fromkeys([wrook, brook], 50),
@@ -73,7 +73,7 @@ piece_values = {**dict.fromkeys([wpawn, bpawn], 10),
                 **dict.fromkeys([wking, bking], 99999)}
 
 # Valores das peças de acordo com a posição
-piece_pos_values = {**dict.fromkeys([wpawn, bpawn], pawn),
+pieces_pos_value = {**dict.fromkeys([wpawn, bpawn], pawn),
                     **dict.fromkeys([wknight, bknight], knight),
                     **dict.fromkeys([wbishop, bbishop], bishop),
                     **dict.fromkeys([wrook, brook], rook),
@@ -90,12 +90,64 @@ class bot(object):
                 res.append((x, y))
             if not white_moving and is_black(board[y][x]):
                 res.append((x, y))
-                
+
         return list(filter(lambda x: possible_moves(moves(x, board), x, board, wcastle, bcastle) != [], res))
     
     # Pesquisa o valor da peça de acordo com a posição no tabuleiro
     def get_pos_value(self, piece, pos):
         if is_white(piece):
-            return piece_pos_values[piece][pos[1]][pos[0]]
+            return pieces_pos_value[piece][pos[1]][pos[0]]
 
         return [x[::-1] for x in pieces_pos_value[piece]][::-1][pos[1]][pos[0]]
+    
+    # Soma o valor total no quadrado
+    def get_board_value(self, board, white_moving):
+        value = 0
+        for (x, y) in [(x, y) for x in range(8) for y in range(8) if board[y][x] != 0]:
+            if white_moving:
+                if is_white(board[y][x]): 
+                    value += self.get_pos_value(board[y][x], (x,y))
+                else: 
+                    value -= self.get_pos_value(board[y][x], (x,y))
+            else:
+                if is_white(board[y][x]): 
+                    value -= self.get_pos_value(board[y][x], (x,y))
+                else: 
+                    value += self.get_pos_value(board[y][x], (x,y))
+        
+        return value
+    
+    # Prcura a melhor jogada para o bot
+    def get_best_move(self, board, pieces, white_moving, wcastle, bcastle):
+        max_value = -99999
+
+        for piece in pieces:
+            for x,y in possible_moves(moves(piece, board), piece, board, wcastle, bcastle):
+                current_value = 0
+                hold = board[y][x]
+                board[y][x] = board[piece[1]][piece[0]]
+                board[piece[1]][piece[0]] = 0
+                if hold != 0: current_value += pieces_value[hold] # Captura
+                current_value += self.get_board_value(board, white_moving)
+                if current_value == max_value: # Não joga da mesma forma duas vezes
+                    switch = choice([False, True])
+                    if switch:
+                        best_piece = piece
+                        best_move = (x,y)
+                if current_value > max_value:
+                    max_value = current_value
+                    best_piece = piece
+                    best_move = (x,y)
+                board[piece[1]][piece[0]] = board[y][x]
+                board[y][x] = hold
+        return (best_piece, best_move)
+    
+    # Retorna o movimento como (best_piece, best_move)
+    def play(self, board, white_moving, wcastle, bcastle):
+        pieces = self.get_pieces(board, white_moving, wcastle, bcastle)
+        if pieces == []: 
+            return False
+        prev_board = copy_board(board)
+        res = self.get_best_move(prev_board, pieces, white_moving, wcastle, bcastle)
+
+        return (res[0], res[1])
