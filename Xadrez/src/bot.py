@@ -90,4 +90,12 @@ class bot(object):
                 res.append((x, y))
             if not white_moving and is_black(board[y][x]):
                 res.append((x, y))
+                
         return list(filter(lambda x: possible_moves(moves(x, board), x, board, wcastle, bcastle) != [], res))
+    
+    # Pesquisa o valor da peça de acordo com a posição no tabuleiro
+    def get_pos_value(self, piece, pos):
+        if is_white(piece):
+            return piece_pos_values[piece][pos[1]][pos[0]]
+
+        return [x[::-1] for x in pieces_pos_value[piece]][::-1][pos[1]][pos[0]]
